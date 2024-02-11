@@ -24,7 +24,7 @@ The code in this repo will be able to do the following
 - [] Add jenkins pipeline that can build from this repo (GH scm polling)
 - [] Set up infra with Terraform
   - [x] VPC, SG and routes
-  - [] Jenkins Controller
+  - [x] Jenkins Controller
   - [] Launch template and Autoscaling group for Builder instances
 - [] Create diagrams of infra
 - [] Create diagram of build
