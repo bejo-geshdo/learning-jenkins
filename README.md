@@ -23,6 +23,9 @@ The code in this repo will be able to do the following
 - [] Add the template react/nextJS app
 - [] Add jenkins pipeline that can build from this repo (GH scm polling)
 - [] Set up infra with Terraform
+  - [x] VPC, SG and routes
+  - [] Jenkins Controller
+  - [] Launch template and Autoscaling group for Builder instances
 - [] Create diagrams of infra
 - [] Create diagram of build
 
@@ -32,6 +35,8 @@ The code in this repo will be able to do the following
 - [] Trigger build from GH webhooks
   - Might need a proxy inbetween GH and Jenkins
   - Look at useing a lambda in the Jenkins VPC??
+- [] Set up the pipeline so that terraform can not build unless packer has built at least once
 - [] Add SSM to AMIs
 - [] Add monitoring, maybe cloudwatch?
 - [] Deploy the email project with this set up
+- [] Delete old version of the AMI when a new one is built
