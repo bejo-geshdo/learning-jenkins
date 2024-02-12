@@ -25,7 +25,9 @@ The code in this repo will be able to do the following
 - [] Set up infra with Terraform
   - [x] VPC, SG and routes
   - [x] Jenkins Controller
-  - [] Launch template and Autoscaling group for Builder instances
+  - [x] Launch template and Autoscaling group for Builder instances
+  - [] IAM role for controller to start EC2 instances from Autoscaling group
+  - [] Get ssh key and name of Autoscaling group to controller
 - [] Create diagrams of infra
 - [] Create diagram of build
 
@@ -40,3 +42,4 @@ The code in this repo will be able to do the following
 - [] Add monitoring, maybe cloudwatch?
 - [] Deploy the email project with this set up
 - [] Delete old version of the AMI when a new one is built
+- [] Multicloud deployment, Jenkins in AWS deploying to GCP
