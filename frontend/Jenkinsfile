@@ -1,0 +1,42 @@
+pipeline {
+  agent {
+    label 'ec2-fleet'
+  }
+
+  environment {
+    AWS_BUCKET_NAME = 'frontend-bucket-096250078731'
+    VITE_BUILD_DATE = ${BUILD_DATE}
+    VITE_BUILD_NUMBER = ${BUILD_NUMBER}
+    VITE_BUILD_URL = ${BUILD_URL}
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        git branch: 'dev',
+          credentialsId: 'jenkins-ec2',
+          url: 'https://github.com/bejo-geshdo/learning-jenkins'        
+      }
+    }
+
+    stage('Build') {
+      steps {
+        cd 'frontend'
+        sh 'npm install'
+        sh 'npm run build'
+      }
+    }
+
+    stage('Test') {
+      steps {
+        echo 'TODO Add tests'
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        sh 'aws s3 sync frontend/dist s3://${AWS_BUCKET_NAME} --delete'
+      }
+    }
+  }
+}
