@@ -34,7 +34,7 @@ resource "aws_instance" "jenkins-controller" {
   instance_type = "t3.micro"
 
   iam_instance_profile = aws_iam_instance_profile.jenkins-controller.name
-  //key_name           = aws_key_pair.jenkins-controller.key_name
+  key_name             = aws_key_pair.jenkins-controller.key_name
 
   subnet_id              = aws_subnet.public[0].id
   vpc_security_group_ids = [aws_security_group.jenkins-controller.id]
@@ -96,4 +96,10 @@ resource "aws_autoscaling_group" "jenkins-agent" {
   lifecycle {
     ignore_changes = [desired_capacity, min_size, max_size]
   }
+}
+
+# --- Outputs ---
+
+output "jenkins-controller-public-ip" {
+  value = aws_instance.jenkins-controller.public_ip
 }

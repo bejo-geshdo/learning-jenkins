@@ -13,11 +13,13 @@ sudo yum upgrade
 
 # Add required dependencies for the jenkins package
 sudo yum install java-17-amazon-corretto -y
+sudo yum install git -y
 sudo yum install jenkins -y
 
 # Change jenkins temp dir
 echo 'JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Djava.io.tmpdir=/home/ec2-user/tmp"' | sudo tee -a /etc/sysconfig/jenkins
-
+# Does not work on newer versions of Jenkins
+# Find a way to change the temp dir or make /tmp bigger
 
 sudo systemctl enable jenkins
 sudo systemctl start jenkins
