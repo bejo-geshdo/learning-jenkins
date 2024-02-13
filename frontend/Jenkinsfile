@@ -14,7 +14,7 @@ pipeline {
     stage('Checkout') {
       steps {
         git branch: 'dev',
-          credentialsId: 'jenkins-ec2',
+          credentialsId: 'github-jenkins',
           url: 'https://github.com/bejo-geshdo/learning-jenkins'        
       }
     }

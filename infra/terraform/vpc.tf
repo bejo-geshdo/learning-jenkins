@@ -67,14 +67,14 @@ resource "aws_security_group" "jenkins-controller" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["${var.home_IP}/32", "${var.office_IP}/32"]
+    cidr_blocks = ["${var.home_IP}/32", "${var.office_IP}/32", aws_vpc.main.cidr_block]
   }
 
   ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["${var.home_IP}/32", "${var.office_IP}/32"]
+    cidr_blocks = ["${var.home_IP}/32", "${var.office_IP}/32", ]
   }
   egress {
     from_port   = 0

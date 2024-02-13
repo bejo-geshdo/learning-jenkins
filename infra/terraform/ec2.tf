@@ -85,6 +85,7 @@ resource "aws_autoscaling_group" "jenkins-agent" {
     id      = aws_launch_template.jenkins-agent.id
     version = "$Latest"
   }
+  max_instance_lifetime = 86400
 
   vpc_zone_identifier = aws_subnet.public[*].id
   tag {
