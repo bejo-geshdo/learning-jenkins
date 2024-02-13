@@ -20,7 +20,7 @@ The code in this repo will be able to do the following
 - [x] Build an AMI for the Jekins controller with Packer
 - [x] Build an AMI for the Jenkins Docker Builder with Packer
 - [] Store the Jenkins config outside of the AMI?
-- [] Add the template react/nextJS app
+- [x] Add the template react/nextJS app
 - [] Add jenkins pipeline that can build from this repo (GH scm polling)
 - [] Set up infra with Terraform
   - [x] VPC, SG and routes
