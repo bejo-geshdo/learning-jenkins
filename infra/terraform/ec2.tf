@@ -32,17 +32,22 @@ data "aws_ami" "jenkins-agent-ami" {
 resource "aws_instance" "jenkins-controller" {
   ami           = data.aws_ami.jenkins-controller-ami.id
   instance_type = "t3.micro"
-  //key_name      = aws_key_pair.jenkins-controller.key_name
-  subnet_id = aws_subnet.public[0].id
-  tags = {
-    Name = "TF Jenkins Controller"
-  }
 
+  iam_instance_profile = aws_iam_instance_profile.jenkins-controller.name
+  //key_name           = aws_key_pair.jenkins-controller.key_name
+
+  subnet_id              = aws_subnet.public[0].id
   vpc_security_group_ids = [aws_security_group.jenkins-controller.id]
 
   //TODO Seperate EBS volume for Jenkins data
   //TODO Protect against accidental termination
   //TODO Add static IP
+  tags = {
+    Name = "TF Jenkins Controller"
+  }
+  lifecycle {
+    ignore_changes = [ami]
+  }
 }
 
 # EC2 launch template for Jenkins agents
@@ -80,7 +85,7 @@ resource "aws_autoscaling_group" "jenkins-agent" {
     id      = aws_launch_template.jenkins-agent.id
     version = "$Latest"
   }
- 
+
   vpc_zone_identifier = aws_subnet.public[*].id
   tag {
     key                 = "Name"
@@ -89,6 +94,6 @@ resource "aws_autoscaling_group" "jenkins-agent" {
   }
 
   lifecycle {
-    ignore_changes = [desired_capacity, min_size]
+    ignore_changes = [desired_capacity, min_size, max_size]
   }
 }

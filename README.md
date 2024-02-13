@@ -26,7 +26,7 @@ The code in this repo will be able to do the following
   - [x] VPC, SG and routes
   - [x] Jenkins Controller
   - [x] Launch template and Autoscaling group for Builder instances
-  - [] IAM role for controller to start EC2 instances from Autoscaling group
+  - [x] IAM role for controller to start EC2 instances from Autoscaling group
   - [] Get ssh key and name of Autoscaling group to controller
 - [] Create diagrams of infra
 - [] Create diagram of build
