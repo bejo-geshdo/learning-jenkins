@@ -74,7 +74,7 @@ resource "aws_launch_template" "jenkins-agent" {
 
 # EC2 autoscaling group for Jenkins agents
 resource "aws_autoscaling_group" "jenkins-agent" {
-  name                      = "jenkins-agent"
+  name                      = "TF-jenkins-agent"
   max_size                  = 5
   min_size                  = 0
   desired_capacity          = 0
@@ -95,7 +95,7 @@ resource "aws_autoscaling_group" "jenkins-agent" {
   }
 
   lifecycle {
-    ignore_changes = [desired_capacity, min_size, max_size]
+    ignore_changes = [desired_capacity, min_size, max_size, protect_from_scale_in]
   }
 }
 
