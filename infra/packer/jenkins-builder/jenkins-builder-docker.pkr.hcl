@@ -17,8 +17,9 @@ source "amazon-ebs" "jenkins_builder-docker" {
 
   source_ami_filter {
     filters = {
-      # Full AMI NAME: "al2023-ami-2023.3.20240205.2-kernel-6.1-x86_64"
-      name                = "al2023-ami-*-x86_64"
+      #name = "al2023-ami-2023.3.20240205.2-kernel-6.1-x86_64"
+      #name = "al2023-ami-ecs-neuron-hvm-2023.0.20240207-kernel-6.1-x86_64"
+      name                = "al2023-ami-2023.3.*-x86_64"
       root-device-type    = "ebs"
       virtualization-type = "hvm"
     }
@@ -36,11 +37,11 @@ build {
   sources = ["source.amazon-ebs.jenkins_builder-docker"]
 
   provisioner "file" {
-    source      = "base-install.sh"
-    destination = "/home/ec2-user/base-install.sh"
+    source      = "install-base.sh"
+    destination = "/home/ec2-user/install-base.sh"
   }
 
   provisioner "shell" {
-    script = "base-install.sh"
+    script = "install-base.sh"
   }
 }
