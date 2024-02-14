@@ -19,14 +19,14 @@ pipeline {
       }
     }
 
-    stage('Build') {
-      steps {
-        dir('frontend'){
-          sh 'npm install'
-          sh 'npm run build'
-        }
-      }
-    }
+    // stage('Build') {
+    //   steps {
+    //     dir('frontend'){
+    //       sh 'npm install'
+    //       sh 'npm run build'
+    //     }
+    //   }
+    // }
 
     stage('Test') {
       steps {
@@ -34,10 +34,10 @@ pipeline {
       }
     }
 
-    stage('Deploy') {
-      steps {
-        sh 'aws s3 sync frontend/dist s3://${AWS_BUCKET_NAME} --delete'
-      }
-    }
+    // stage('Deploy') {
+    //   steps {
+    //     sh 'aws s3 sync frontend/dist s3://${AWS_BUCKET_NAME} --delete'
+    //   }
+    // }
   }
 }
