@@ -56,6 +56,9 @@ resource "aws_launch_template" "jenkins-agent" {
   image_id      = data.aws_ami.jenkins-agent-ami.id
   instance_type = "t3.small"
   key_name      = aws_key_pair.jenkins-controller.key_name
+  iam_instance_profile {
+    name = aws_iam_instance_profile.jenkins-agent.name
+  }
 
   vpc_security_group_ids = [aws_security_group.jenkins-controller.id]
   #TODO set up new security group for agents
