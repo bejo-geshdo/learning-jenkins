@@ -5,9 +5,9 @@ pipeline {
 
   environment {
     AWS_BUCKET_NAME = 'frontend-bucket-096250078731'
-    VITE_BUILD_DATE = '${BUILD_DATE}'
-    VITE_BUILD_NUMBER = '${BUILD_NUMBER}'
-    VITE_BUILD_URL = '${BUILD_URL}'
+    VITE_BUILD_DATE = sh(returnStdout: true, script: 'date')
+    VITE_BUILD_NUMBER ="${BUILD_NUMBER}"
+    VITE_BUILD_URL = "${BUILD_URL}"
   }
 
   stages {

@@ -11,6 +11,7 @@ data "aws_iam_policy_document" "ec2_trust_policy" {
   }
 }
 
+#Policy and roles for Jenkins controller
 data "aws_iam_policy_document" "iam_policy" {
   statement {
     effect = "Allow"
@@ -99,3 +100,40 @@ resource "aws_iam_role_policy_attachment" "jenkins-controller" {
   policy_arn = aws_iam_policy.jenkins-controller.arn
 }
 
+# EC2 instances for Jenkins agent
+
+data "aws_iam_policy_document" "frontend_s3_access" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "s3:PutObject",
+      "s3:GetObject",
+      "s3:DeleteObject",
+      "s3:ListBucket"
+    ]
+    resources = [aws_s3_bucket.frontend_bucket.arn, "${aws_s3_bucket.frontend_bucket.arn}/*"]
+  }
+}
+
+resource "aws_iam_policy" "frontend_s3_access" {
+  name        = "frontend_s3_access"
+  description = "Allows Jenkins agents to access frontend S3"
+  policy      = data.aws_iam_policy_document.frontend_s3_access.json
+}
+
+resource "aws_iam_role" "jenkins-agent" {
+  name_prefix        = "jenkins-agent-"
+  assume_role_policy = data.aws_iam_policy_document.ec2_trust_policy.json
+}
+
+resource "aws_iam_instance_profile" "jenkins-agent" {
+  name_prefix = "jenkins-agent-"
+  path        = "/ecs/instnace/"
+  role        = aws_iam_role.jenkins-agent.name
+}
+
+resource "aws_iam_policy_attachment" "jenkins-agent" {
+  name       = "jenkins-agent"
+  roles      = [aws_iam_role.jenkins-agent.name]
+  policy_arn = aws_iam_policy.frontend_s3_access.arn
+}
