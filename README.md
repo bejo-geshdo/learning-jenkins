@@ -21,10 +21,10 @@ The code in this repo will be able to do the following
 - [x] Build an AMI for the Jenkins Docker Builder with Packer
 - [] Store the Jenkins config outside of the AMI?
 - [x] Add the template react/nextJS app
-- [] Add jenkins pipeline that can build from this repo (GH scm polling)
+- [x] Add jenkins pipeline that can build from this repo (GH scm polling)
   - [x] Frontend
-  - [] Infra
-  - [] Packer
+  - [x] Infra
+  - [x] Packer
 - [] Set up infra with Terraform
   - [x] VPC, SG and routes
   - [x] Jenkins Controller
@@ -41,6 +41,7 @@ The code in this repo will be able to do the following
   - Might need a proxy inbetween GH and Jenkins
   - Look at useing a lambda in the Jenkins VPC??
 - [] Only trigger build if changes has been made i files relevent to build
+- [] Terraform module for bootstrapping
 - [] Set up the pipeline so that terraform can not build unless packer has built at least once
 - [] Add SSM to AMIs
 - [] Add monitoring, maybe cloudwatch?
