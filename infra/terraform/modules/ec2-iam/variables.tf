@@ -8,7 +8,7 @@ variable "policies" {
   type        = list(string)
 
   validation {
-    condition     = alltrue([for policy in var.policies : can(regex("arn:aws:iam::[0-9]+:policy/.*", policy))])
+    condition     = alltrue([for policy in var.policies : can(regex("arn:aws:iam::[\"aws\"0-9]+:policy/.*", policy))])
     error_message = "Policies must be ARNs"
   }
 }

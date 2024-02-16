@@ -60,6 +60,15 @@ pipeline {
             }
           }
         }
+
+        stage('Build agent for Terraform') {
+          steps {
+            dir('infra/packer/jenkins-builder'){
+              sh 'packer build jenkins-builder-terraform.pkr.hcl'
+              //TODO Output the AMI ID, use this later in testing
+            }
+          }
+        }
       }
     }
 
