@@ -72,7 +72,7 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        sh 'TODO'
+        echo 'TODO'
         //TODO Update launch templates and ENVs or something like that
       }
     }
