@@ -1,0 +1,71 @@
+pipeline {
+  agent {
+    label 'ec2-fleet-packer'
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        git branch: 'packer',
+          credentialsId: 'github-jenkins',
+          url: 'https://github.com/bejo-geshdo/learning-jenkins'
+      }
+    }
+
+    stage('Build Images') {
+      failFast false
+      parallel {
+        //TODO use envs in packer
+        stage('Build Controller for Jenkins') {
+          steps {
+            dir('infra/packer/jenkins-controller'){
+              sh 'packer build jenkins-controller.pkr.hcl'
+              //TODO Output the AMI ID, use this later in testing
+            }
+          }
+        }
+
+        stage('Build agent for Packer') {
+          steps {
+            dir('infra/packer/jenkins-builder'){
+              sh 'packer build jenkins-builder-packer.pkr.hcl'
+              //TODO Output the AMI ID, use this later in testing
+            }
+          }
+        }
+
+        stage('Build agent for nodeJS') {
+          steps {
+            dir('infra/packer/jenkins-builder'){
+              sh 'packer build jenkins-builder-nodejs.pkr.hcl'
+              //TODO Output the AMI ID, use this later in testing
+            }
+          }
+        }
+
+        stage('Build agent for GCP') {
+          steps {
+            dir('infra/packer/jenkins-builder'){
+              sh 'packer build jenkins-builder-gcp.pkr.hcl'
+              //TODO Output the AMI ID, use this later in testing
+            }
+          }
+        }
+      }
+    }
+
+    stage('Test') {
+      steps {
+        echo 'TODO Add tests'
+        //TODO Check if amis exists and boots or somthing 
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        sh 'TODO'
+        //TODO Update launch templates and ENVs or something like that
+      }
+    }
+  }
+}
