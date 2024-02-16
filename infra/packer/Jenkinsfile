@@ -6,7 +6,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git branch: 'packer',
+        git branch: 'main',
           credentialsId: 'github-jenkins',
           url: 'https://github.com/bejo-geshdo/learning-jenkins'
       }
