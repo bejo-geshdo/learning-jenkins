@@ -1,0 +1,58 @@
+pipeline {
+  agent {
+    label 'ec2-fleet-terraform'
+  }
+
+  environment {
+    aws_account_id = '096250078731'
+    home_IP = "89.255.242.214"
+    office_IP ="188.66.48.201"
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        git branch: 'tf',
+          credentialsId: 'github-jenkins',
+          url: 'https://github.com/bejo-geshdo/learning-jenkins'
+      }
+    }
+
+    stage('Pre build') {
+      steps {
+        dir('infra/terraform'){
+          sh 'terraform init'
+          sh 'terraform validate'
+        }
+      }
+    }
+
+
+    stage('Plan') {
+      steps {
+        dir('infra/terraform'){
+          echo 'Planing the infrastructure'
+          sh 'terraform plan -var="aws_account_id=${aws_account_id}" -var="home_IP=${home_IP}" -var="office_IP=${office_IP}" -out=tfplan'
+          //TODO have vars in a file
+        }
+      }
+      
+    }
+
+    stage('Deploy') {
+      steps {
+        dir('infra/terraform'){
+          echo 'Deploying the infrastructure'
+          sh 'terraform apply -auto-approve tfplan'
+        }
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        echo 'TODO'
+        //TODO Update launch templates and ENVs or something like that
+      }
+    }
+  }
+}
