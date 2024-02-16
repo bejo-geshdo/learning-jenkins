@@ -47,12 +47,5 @@ pipeline {
         }
       }
     }
-
-    stage('Deploy') {
-      steps {
-        echo 'TODO'
-        //TODO Update launch templates and ENVs or something like that
-      }
-    }
   }
 }
