@@ -22,7 +22,7 @@ The code in this repo will be able to do the following
 - [] Store the Jenkins config outside of the AMI?
 - [x] Add the template react/nextJS app
 - [] Add jenkins pipeline that can build from this repo (GH scm polling)
-  - [] Frontend
+  - [x] Frontend
   - [] Infra
   - [] Packer
 - [] Set up infra with Terraform

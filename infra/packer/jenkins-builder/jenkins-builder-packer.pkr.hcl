@@ -12,8 +12,8 @@ locals {
 }
 
 source "amazon-ebs" "jenkins_builder-docker" {
-  ami_name = "jenkins-builder-docker-${local.timestamp}"
-  ami_description = "Jenkins builder with docker and git installed"
+  ami_name = "jenkins-builder-packer-${local.timestamp}"
+  ami_description = "Jenkins builder with docker, git and packer installed"
 
   source_ami_filter {
     filters = {
@@ -42,5 +42,14 @@ build {
 
   provisioner "shell" {
     script = "install-base.sh"
+  }
+
+  provisioner "file" {
+    source = "install-packer.sh"
+    destination = "/home/ec2-user/install-packer.sh"
+  }
+
+  provisioner "shell" {
+    script = "install-packer.sh"
   }
 }
