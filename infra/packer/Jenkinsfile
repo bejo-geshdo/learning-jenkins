@@ -12,6 +12,17 @@ pipeline {
       }
     }
 
+    stage('Pre build')
+      steps {
+        dir('infra/packer/jenkins-controller'){
+          sh 'packer init .'
+        }
+        
+        dir('infra/packer/jenkins-builder'){
+          sh 'packer init .'
+        }
+      }
+
     stage('Build Images') {
       failFast false
       parallel {
@@ -19,7 +30,6 @@ pipeline {
         stage('Build Controller for Jenkins') {
           steps {
             dir('infra/packer/jenkins-controller'){
-              sh 'packer init'
               sh 'packer build jenkins-controller.pkr.hcl'
               //TODO Output the AMI ID, use this later in testing
             }
@@ -29,7 +39,6 @@ pipeline {
         stage('Build agent for Packer') {
           steps {
             dir('infra/packer/jenkins-builder'){
-              sh 'packer init'
               sh 'packer build jenkins-builder-packer.pkr.hcl'
               //TODO Output the AMI ID, use this later in testing
             }
@@ -39,7 +48,6 @@ pipeline {
         stage('Build agent for nodeJS') {
           steps {
             dir('infra/packer/jenkins-builder'){
-              sh 'packer init'
               sh 'packer build jenkins-builder-nodejs.pkr.hcl'
               //TODO Output the AMI ID, use this later in testing
             }
@@ -49,7 +57,6 @@ pipeline {
         stage('Build agent for GCP') {
           steps {
             dir('infra/packer/jenkins-builder'){
-              sh 'packer init'
               sh 'packer build jenkins-builder-gcp.pkr.hcl'
               //TODO Output the AMI ID, use this later in testing
             }
