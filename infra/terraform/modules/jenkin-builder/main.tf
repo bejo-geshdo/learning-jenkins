@@ -10,8 +10,10 @@ data "aws_ami" "jenkins-agent-ami" {
 
 # EC2 launch template for Jenkins agents
 resource "aws_launch_template" "jenkins-agent" {
-  image_id = data.aws_ami.jenkins-agent-ami.id
-  key_name = var.key_name
+  name_prefix   = var.name
+  image_id      = data.aws_ami.jenkins-agent-ami.id
+  instance_type = var.instance_type
+  key_name      = var.key_name
   iam_instance_profile {
     name = var.iam_instance_profile
   }
@@ -37,7 +39,7 @@ resource "aws_launch_template" "jenkins-agent" {
 
 # EC2 autoscaling group for Jenkins agents
 resource "aws_autoscaling_group" "jenkins-agent" {
-  name                      = "TF-jenkins-agent"
+  name_prefix               = var.name
   max_size                  = 5
   min_size                  = 0
   desired_capacity          = 0

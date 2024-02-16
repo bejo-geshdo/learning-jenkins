@@ -26,5 +26,5 @@ resource "aws_iam_role_policy_attachment" "ec2-role" {
 resource "aws_iam_instance_profile" "ec2-role" {
   name_prefix = var.name //var.name
   path        = "/ecs/instnace/"
-  role        = aws_iam_role.ec2-role.arn
+  role        = aws_iam_role.ec2-role.name
 }
