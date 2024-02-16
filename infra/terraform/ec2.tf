@@ -33,8 +33,9 @@ resource "aws_instance" "jenkins-controller" {
   ami           = data.aws_ami.jenkins-controller-ami.id
   instance_type = "t3.micro"
 
-  iam_instance_profile = module.jenkin-contoller-iam.aws_iam_instance_profile_name
-  key_name             = aws_key_pair.jenkins-controller.key_name
+  iam_instance_profile    = module.jenkin-contoller-iam.aws_iam_instance_profile_name
+  key_name                = aws_key_pair.jenkins-controller.key_name
+  disable_api_termination = true
 
   subnet_id              = aws_subnet.public[0].id
   vpc_security_group_ids = [aws_security_group.jenkins-controller.id]
