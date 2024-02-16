@@ -14,12 +14,8 @@ pipeline {
 
     stage('Pre build') {
       steps {
-        dir('infra/packer/jenkins-controller'){
-          sh 'packer init .'
-        }
-        
-        dir('infra/packer/jenkins-builder'){
-          sh 'packer init .'
+        dir('infra/packer'){
+          sh 'packer init requirements.pkr.hcl'
         }
       }
     }
