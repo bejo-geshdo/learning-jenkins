@@ -40,7 +40,16 @@ build {
     destination = "/home/ec2-user/install-base.sh"
   }
 
+  provisioner "file" {
+    source = "install-nodejs.sh"
+    destination = "/home/ec2-user/install-nodejs.sh"
+  }
+
   provisioner "shell" {
     script = "install-base.sh"
+  }
+
+  provisioner "shell" {
+    script = "install-nodejs.sh"
   }
 }

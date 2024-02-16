@@ -40,6 +40,7 @@ The code in this repo will be able to do the following
 - [] Trigger build from GH webhooks
   - Might need a proxy inbetween GH and Jenkins
   - Look at useing a lambda in the Jenkins VPC??
+- [] Only trigger build if changes has been made i files relevent to build
 - [] Set up the pipeline so that terraform can not build unless packer has built at least once
 - [] Add SSM to AMIs
 - [] Add monitoring, maybe cloudwatch?

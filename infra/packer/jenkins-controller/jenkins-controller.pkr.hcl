@@ -19,7 +19,7 @@ source "amazon-ebs" "jenkins_controller" {
   source_ami_filter {
     filters = {
       # Full AMI NAME: "al2023-ami-2023.3.20240205.2-kernel-6.1-x86_64"
-      name                = "al2023-ami-*-x86_64"
+      name                = "al2023-ami-2023.3.*-x86_64"
       root-device-type    = "ebs"
       virtualization-type = "hvm"
     }
