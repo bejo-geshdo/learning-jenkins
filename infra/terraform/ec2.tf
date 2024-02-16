@@ -72,6 +72,17 @@ module "jenkins-builder-packer" {
   iam_instance_profile = module.jenkins-agent-packer-iam.aws_iam_instance_profile_name
 }
 
+module "jenkins-builder-terraform" {
+  source = "./modules/jenkin-builder"
+
+  name                 = "tf-jenkins-agent-terraform-"
+  ami_name_filter      = "jenkins-builder-terraform-*"
+  key_name             = aws_key_pair.jenkins-controller.key_name
+  security_groups      = [aws_security_group.jenkins-controller.id]
+  subnet_ids           = [aws_subnet.public[0].id]
+  iam_instance_profile = module.jenkins-agent-terraform-iam.aws_iam_instance_profile_name
+}
+
 # --- Outputs ---
 
 output "jenkins-controller-public-ip" {

@@ -1,6 +1,6 @@
 # Learning Jenkins and EC2 suff
 
-I created this repo learn about Jenkins and to get more comfortable useing EC2/traditonal servers.
+I created this repo to learn about Jenkins and to get more comfortable useing EC2/traditonal servers.
 
 ## What the code here will do
 

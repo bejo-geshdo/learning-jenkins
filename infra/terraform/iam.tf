@@ -69,7 +69,7 @@ resource "aws_iam_policy" "jenkins-controller" {
   policy      = data.aws_iam_policy_document.iam_policy.json
 }
 
-#Policies for Jenkins frontend agent
+#Policies for Jenkins Frontend agent
 data "aws_iam_policy_document" "frontend_s3_access" {
   statement {
     effect = "Allow"
@@ -89,33 +89,48 @@ resource "aws_iam_policy" "frontend_s3_access" {
   policy      = data.aws_iam_policy_document.frontend_s3_access.json
 }
 
-#Policies for Jenkins packer agent
+#Policies for Jenkins Packer agent
 
 data "aws_iam_policy_document" "packer_ami_builder" {
   statement {
+    effect = "Allow"
     actions = [
-      "ec2:Describe*",
-      "ec2:CreateSnapshot",
-      "ec2:CreateImage",
-      "ec2:DeleteSnapshot",
-      "ec2:DeleteImage",
-      "ec2:RegisterImage",
-      "ec2:CreateVolume",
-      "ec2:DeleteVolume",
-      "ec2:ModifyImageAttribute",
-      "ec2:ModifySnapshotAttribute",
-      "ec2:CopySnapshot",
+      "ec2:AttachVolume",
+      "ec2:AuthorizeSecurityGroupIngress",
       "ec2:CopyImage",
+      "ec2:CreateImage",
+      "ec2:CreateKeyPair",
+      "ec2:CreateSecurityGroup",
+      "ec2:CreateSnapshot",
       "ec2:CreateTags",
+      "ec2:CreateVolume",
+      "ec2:DeleteKeyPair",
+      "ec2:DeleteSecurityGroup",
+      "ec2:DeleteSnapshot",
+      "ec2:DeleteVolume",
+      "ec2:DeregisterImage",
+      "ec2:DescribeImageAttribute",
+      "ec2:DescribeImages",
+      "ec2:DescribeInstances",
+      "ec2:DescribeInstanceStatus",
+      "ec2:DescribeRegions",
+      "ec2:DescribeSecurityGroups",
+      "ec2:DescribeSnapshots",
+      "ec2:DescribeSubnets",
+      "ec2:DescribeTags",
+      "ec2:DescribeVolumes",
+      "ec2:DetachVolume",
+      "ec2:GetPasswordData",
+      "ec2:ModifyImageAttribute",
       "ec2:ModifyInstanceAttribute",
+      "ec2:ModifySnapshotAttribute",
+      "ec2:RegisterImage",
+      "ec2:RunInstances",
       "ec2:StopInstances",
       "ec2:TerminateInstances",
-      "ec2:AttachVolume",
-      "ec2:DetachVolume",
-      "ec2:RunInstances",
-      "ec2:StartInstances"
-    ]
+      "ec2:EnableImageDeprecation"
 
+    ]
     resources = ["*"]
   }
 
@@ -128,6 +143,8 @@ resource "aws_iam_policy" "packer_ami_builder" {
   description = "Policy for service that builds and stores AMIs"
   policy      = data.aws_iam_policy_document.packer_ami_builder.json
 }
+
+#Policies for Jenkins Terraform agent
 
 
 #Roles and instance profiles
@@ -155,5 +172,14 @@ module "jenkins-agent-packer-iam" {
   name = "jenkins-agent-packer-"
   policies = [
     aws_iam_policy.packer_ami_builder.arn
+  ]
+}
+
+module "jenkins-agent-terraform-iam" {
+  source = "./modules/ec2-iam"
+
+  name = "jenkins-agent-terraform-"
+  policies = [
+    "arn:aws:iam::aws:policy/AdministratorAccess"
   ]
 }
