@@ -12,7 +12,7 @@ pipeline {
       }
     }
 
-    stage('Pre build')
+    stage('Pre build') {
       steps {
         dir('infra/packer/jenkins-controller'){
           sh 'packer init .'
@@ -22,6 +22,8 @@ pipeline {
           sh 'packer init .'
         }
       }
+    }
+
 
     stage('Build Images') {
       failFast false
