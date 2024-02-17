@@ -38,7 +38,7 @@ resource "aws_instance" "jenkins-controller" {
   disable_api_termination = true
 
   subnet_id              = aws_subnet.public[0].id
-  vpc_security_group_ids = [aws_security_group.jenkins-controller.id]
+  vpc_security_group_ids = [aws_security_group.jenkins-controller.id, aws_security_group.github-webhook.id]
 
   //TODO Seperate EBS volume for Jenkins data
   //TODO Protect against accidental termination

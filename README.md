@@ -37,14 +37,14 @@ The code in this repo will be able to do the following
 ## Stretch Goals
 
 - [] Retrive secret from AWS or GCP inside Jenkins builds
-- [] Trigger build from GH webhooks
-  - Might need a proxy inbetween GH and Jenkins
-  - Look at useing a lambda in the Jenkins VPC??
-- [] Only trigger build if changes has been made i files relevent to build
+- [x] Trigger build from GH webhooks
+  - [] all pipelines
+  - [] Only trigger build if changes has been made i files relevent to build
 - [] Terraform module for bootstrapping
 - [] Set up the pipeline so that terraform can not build unless packer has built at least once
 - [] Add SSM to AMIs
 - [] Add monitoring, maybe cloudwatch?
 - [] Deploy the email project with this set up
 - [] Delete old version of the AMI when a new one is built
+- [] Look into useing ec2-instance-connect-endpoin insted of IPv4
 - [] Multicloud deployment, Jenkins in AWS deploying to GCP

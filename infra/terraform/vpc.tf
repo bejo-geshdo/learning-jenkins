@@ -84,3 +84,44 @@ resource "aws_security_group" "jenkins-controller" {
   }
 }
 # TODO Look if we can lock down traffic between Jenkins contoller and agents
+
+
+#Github Webhook
+
+data "http" "github_IPS" {
+  url = "https://api.github.com/meta"
+
+}
+
+
+
+locals {
+  ips         = jsondecode(data.http.github_IPS.response_body).hooks
+  ipv4_ranges = [for cidr in local.ips : cidr if can(regex("^([0-9]{1,3}\\.){3}[0-9]{1,3}(\\/([0-9]|[1-2][0-9]|3[0-2]))?$", cidr))]
+}
+
+#^([0-9]{1,3}\.){3}[0-9]{1,3}($|/(16|24))$
+output "ips" {
+  value = local.ipv4_ranges
+
+}
+
+resource "aws_security_group" "github-webhook" {
+  vpc_id = aws_vpc.main.id
+
+  dynamic "ingress" {
+    for_each = local.ipv4_ranges //TODO check if we can use the set of IPs
+    content {
+      from_port   = 8080
+      to_port     = 8080
+      protocol    = "tcp"
+      cidr_blocks = [ingress.value]
+    }
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
