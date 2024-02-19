@@ -7,6 +7,8 @@ pipeline {
     aws_account_id = '096250078731'
     home_IP = "89.255.242.214"
     office_IP ="188.66.48.201"
+    route53_zone_id = "Z03964523BC8O8GF4XBR2"
+    domain = "jenkins.castrojonsson.se"
   }
 
   stages {
@@ -32,7 +34,7 @@ pipeline {
       steps {
         dir('infra/terraform'){
           echo 'Planing the infrastructure'
-          sh 'terraform plan -var="aws_account_id=${aws_account_id}" -var="home_IP=${home_IP}" -var="office_IP=${office_IP}" -out=tfplan'
+          sh 'terraform plan -var="aws_account_id=${aws_account_id}" -var="home_IP=${home_IP}" -var="office_IP=${office_IP}" -var="route53_zone_id"=${route53_zone_id} -var="domain"=${domain} -out=tfplan'
           //TODO have vars in a file
         }
       }

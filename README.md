@@ -2,6 +2,12 @@
 
 I created this repo to learn about Jenkins and to get more comfortable useing EC2/traditonal servers.
 
+## How to access
+
+You can access the template frontend that contains some info about the latest build here: https://www.jenkins.castrojonsson.se/
+
+Access to the Jenkins controller is locked down to specific IPs.
+
 ## What the code here will do
 
 The code in this repo will be able to do the following
@@ -48,3 +54,4 @@ The code in this repo will be able to do the following
 - [] Delete old version of the AMI when a new one is built
 - [] Look into useing ec2-instance-connect-endpoin insted of IPv4
 - [] Multicloud deployment, Jenkins in AWS deploying to GCP
+- [] Lock down IAM role used to provision terraform

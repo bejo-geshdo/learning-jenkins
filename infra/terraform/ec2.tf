@@ -42,13 +42,17 @@ resource "aws_instance" "jenkins-controller" {
 
   //TODO Seperate EBS volume for Jenkins data
   //TODO Protect against accidental termination
-  //TODO Add static IP
   tags = {
     Name = "TF Jenkins Controller"
   }
   lifecycle {
     ignore_changes = [ami]
   }
+}
+
+resource "aws_eip" "jenkins-controller" {
+  instance = aws_instance.jenkins-controller.id
+  domain   = "vpc"
 }
 
 module "jenkins-builder-node" {

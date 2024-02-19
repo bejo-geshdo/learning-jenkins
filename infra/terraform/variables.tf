@@ -27,3 +27,13 @@ variable "office_IP" {
     error_message = "The office_ip must be a valid IPv4 address."
   }
 }
+
+variable "route53_zone_id" {
+  type        = string
+  description = "The ID of the Route53 zone"
+}
+
+variable "domain" {
+  type        = string
+  description = "The domain name for your Route53 zone"
+}

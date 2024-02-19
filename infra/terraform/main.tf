@@ -14,3 +14,9 @@ terraform {
 provider "aws" {
   region = "eu-central-1"
 }
+
+# Needs a provider for the us-east-1 region to create the ACM certificate for cloudfront
+provider "aws" {
+  region = "us-east-1"
+  alias  = "us_east_1"
+}

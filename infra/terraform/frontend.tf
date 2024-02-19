@@ -63,8 +63,11 @@ resource "aws_cloudfront_distribution" "cloud_front" {
   #Makes it so TF does not wait for CF to be fully deployed
   wait_for_deployment = false
 
+  aliases = [local.jenkins_frontend_domain]
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn      = aws_acm_certificate.jenkins_frontend.arn
+    minimum_protocol_version = "TLSv1.2_2021"
+    ssl_support_method       = "sni-only"
   }
 
   is_ipv6_enabled = true
