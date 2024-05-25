@@ -4,7 +4,8 @@ I created this repo to learn about Jenkins and to get more comfortable useing EC
 
 ## How to access
 
-You can access the template frontend that contains some info about the latest build here: https://www.jenkins.castrojonsson.se/
+Project has now be shutdown 
+~~You can access the template frontend that contains some info about the latest build here: https://www.jenkins.castrojonsson.se/~~
 
 Access to the Jenkins controller is locked down to specific IPs.
 
